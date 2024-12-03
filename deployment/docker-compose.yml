@@ -1,0 +1,8 @@
+services:
+  go-app:
+    image: golang:1.23.3-bookworm
+    container_name: golang
+    volumes:
+      - .:/app
+    working_dir: /app
+    command: sleep infinity
