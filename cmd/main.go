@@ -14,6 +14,7 @@ import (
 	shellsort "algorithms/internal/sort/shellSort"
 	"fmt"
 	"math/rand"
+	"time"
 )
 
 func main() {
@@ -72,6 +73,8 @@ func main() {
 	}
 
 	var result, searchValue int
+	var start time.Time
+	var end time.Duration
 
 	if algorithmChoice >= 1 && algorithmChoice <= 5 {
 		fmt.Println("Array:")
@@ -85,39 +88,62 @@ func main() {
 
 		switch algorithmChoice {
 		case 1:
+			start = time.Now()
 			result = binarysearch.Search(arr, 0, length-1, searchValue)
+			end = time.Since(start)
 		case 2:
+			start = time.Now()
 			result = interpolationsearch.Search(arr, 0, length-1, searchValue)
+			end = time.Since(start)
 		case 3:
+			start = time.Now()
 			result = jumpsearch.Search(arr, 0, length-1, searchValue)
+			end = time.Since(start)
 		case 4:
+			start = time.Now()
 			result = exponentialsearch.Search(arr, 0, length-1, searchValue)
+			end = time.Since(start)
 		case 5:
+			start = time.Now()
 			result = ternarysearch.Search(arr, 0, length-1, searchValue)
+			end = time.Since(start)
 		default:
 			fmt.Println("Escolha de algoritmo inválido")
 			return
 		}
 
 		fmt.Println("O valor está na posição:", result)
+		fmt.Println("O tempo foi de", end)
 		return
 	} else if algorithmChoice >= 6 && algorithmChoice <= 11 {
-		fmt.Println("Array desordenado")
+		fmt.Println("Array desordenado:")
 		fmt.Println(arr)
 
 		switch algorithmChoice {
 		case 6:
+			start = time.Now()
 			shellsort.Sort(arr)
+			end = time.Since(start)
 		case 7:
-			mergesort.Sort(arr, 0, length - 1)
+			start = time.Now()
+			mergesort.Sort(arr, 0, length-1)
+			end = time.Since(start)
 		case 8:
+			start = time.Now()
 			selectionsort.Sort(arr)
+			end = time.Since(start)
 		case 9:
+			start = time.Now()
 			bucketsort.Sort(arr)
+			end = time.Since(start)
 		case 10:
+			start = time.Now()
 			radixsort.Sort(arr)
+			end = time.Since(start)
 		case 11:
-			quicksort.Sort(arr, 0, length - 1)
+			start = time.Now()
+			quicksort.Sort(arr, 0, length-1)
+			end = time.Since(start)
 		}
 
 		fmt.Println("Array organizado:")

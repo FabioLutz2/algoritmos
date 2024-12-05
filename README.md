@@ -18,6 +18,10 @@ Caso a lista não esteja ordenada, não há como saber em qual metade o alvo est
 
 [Implementação do Interpolation Search](./internal/search/interpolationSearch/interpolation.go)
 
+### Listas desordenadas
+
+Quando o interpolation é usado em listas desordenadas, não é possível de encontrar o elemento, pois o cálculo feito considera que seja uma lista ordenada, caso contrário, o cálculo não fará sentido.
+
 ### Casos em que interpolation é mais eficiente que o binary search
 
 O intepolation search segue uma implementação parecida com o binary search, mas que, ao invés de sempre ir para o meio do array, tenta fazer uma estimativa do valor imaginando como uma lista uniformemente distribuída ou próximo disso.
@@ -30,11 +34,52 @@ O interpolation é pensado para ser mais eficiente para casos uniformemente dist
 
 [Implementação do Jump Search](./internal/search/jumpSearch/jump.go)
 
+### Tamanho ideal
+
+O tamanho ideal para uma lista de tamanho n é √n (raiz de n). Ele cria um equilíbrio entre o tamanho dos saltos, para conseguir pular o maior número de valores, mas tendo o menor intervalo para demorar menos quando encontrar.
+
+### Comparação com binary search
+
+Cenário: lista ordenada e o elemento não está presente.
+
+Jump Search:
+* 100
+    911ns, 1.109µs, 1.002µs
+* 10.000
+    3.591µs, 3.335µs, 3.408µs
+* 1.000.000
+    54.19µs, 82.422µs, 54.054µs
+
+Binary Search:
+* 100: 
+    1.096µs, 665ns, 692ns
+* 10.000:
+    1.643µs, 1.127µs, 1.326µs
+* 1.000.000:
+    2.379µs, 2.165µs, 2.463µs
+
 ## Exponential Search
 
 ### Implementação
 
 [Implementação do Exponential Search](./internal/search/exponentialSearch/exponential.go)
+
+### Relação com jump search e binary search
+
+O exponential search é uma combinação do jump search com o binary search.
+
+A parte do jump search são os saltos feitos com valores exponenciais. A parte do binary search é a busca feita quando é encontrado o intervalo em que o elemento está presente.
+
+### Desempenho
+
+Cenário: lista ordenada e o elemento não está presente.
+
+* 100:
+    1.102µs, 878ns, 958ns
+* 10.000:
+    1.253µs, 1.143µs, 1.31µs
+* 1.000.000:
+    3.364µs, 3.245µs, 3.01µs
 
 ## Shell Sort
 
@@ -80,3 +125,15 @@ O dividir é a separação do array em subarrays, enquanto o conquistar é a jun
 
 ## Ternary Search
 
+[Implenentação do Ternary Search](./internal/search/ternarySearch/ternary.go)
+
+### Quando é mais eficiente que o binary search
+
+O ternary search é mais eficiente que o binary search em situações em que a lista não é totalmente linear, como em caso de funções unimodais.
+
+# Estabilidade
+
+Algoritmos estáveis são os que preservam a ordem original de elementos iguais.
+
+Estáveis: Radix Sort, Bucket Sort (se internamente também for), Merge Sort
+Não estáveis: Quick Sort, Selection Sort, Shell Sort
